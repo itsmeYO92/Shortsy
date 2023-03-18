@@ -1,6 +1,10 @@
 import openai
 
-openai.api_key = "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"
+def paragraph_generation(script):
+	return script.split('\n\n')
+
+
+openai.api_key = "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"
 model_engine = "text-davinci-003"
 
 genre=input("Whats your genre: ")
@@ -16,5 +20,10 @@ completion = openai.Completion.create(
 ) 
 
 response = completion.choices[0].text
-print(response)
+
+p = paragraph_generation(response)
+for i in p:
+	print("------------")
+	print(i) 
+
 
