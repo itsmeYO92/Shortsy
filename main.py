@@ -1,8 +1,13 @@
 import openai
+import gtts
+from playsound import playsound
 
 def paragraph_generation(script):
 	return script.split('\n\n')
 
+def to_mp3(paragraph,title):
+	tts = gtts.gTTS(paragraph)
+	tts.save(title)
 
 openai.api_key = "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"
 model_engine = "text-davinci-003"
@@ -22,8 +27,9 @@ completion = openai.Completion.create(
 response = completion.choices[0].text
 
 p = paragraph_generation(response)
+t = 0
+
 for i in p:
-	print("------------")
-	print(i) 
-
-
+	if i:
+		to_mp3(i,str(t) + ".mp3")
+		t = t + 1
