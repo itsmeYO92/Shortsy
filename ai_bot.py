@@ -33,10 +33,11 @@ def to_mp3(paragraph,title):
 	tts = gtts.gTTS(paragraph)
 	tts.save(title)
 
-openai.api_key = os.getenv('KEY')
+openai.api_key = os.getenv('AI_KEY')
 model_engine = "text-davinci-003"
 
-genre=input("Whats your genre: ")
+#genre=input("Whats your genre: ")
+genre="Horror"
 prompt = "write me a " + genre + "story"
 
 completion = openai.Completion.create(
@@ -55,19 +56,23 @@ print("stroy has been generated:      ")
 p = paragraph_generation(response)
 print("story is ready")
 
-t = 0
 
-for i in p:
-	if i:
-		aud = str(t) + ".mp3"
-		image = str(t) + ".png"
-		to_mp3(i,aud)
-		print(aud + " generated")
-		generate_image(i)
-		print(image + " generated")
-		im = Image.open("generated/image-1.webp").convert("RGB")
-		im.save(image,"png")
-		make_video(image, aud, t)		
-		print("a vid part has been made\n")
+def start_ai():
+	t = 0
+	
+	for i in p:
+		if i:
+			aud = str(t) + ".mp3"
+			image = str(t) + ".png"
+			to_mp3(i,aud)
+			print(aud + " generated")
+			generate_image(i)
+			print(image + " generated")
+			im = Image.open("generated/image-1.webp").convert("RGB")
+			im.save(image,"png")
+			make_video(image, aud, t)		
+			print("a vid part has been made\n")
+	
+			t = t + 1
 
-		t = t + 1
+
