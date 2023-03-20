@@ -99,7 +99,7 @@ def video(update, context):
 			print(aud + " generated")
 			make_video(image, aud, t)		
 			print("a vid part has been made\n")
-			update.message.reply_video(open("video"+str(t)+".mp4"))
+			update.message.reply_video(video = open("video"+str(t)+".mp4", "rb"))
 			t = t + 1
 		
 	
